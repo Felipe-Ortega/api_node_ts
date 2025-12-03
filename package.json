@@ -1,0 +1,16 @@
+{
+  "name": "api_node_ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Felipe Ortega",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
