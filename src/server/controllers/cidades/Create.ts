@@ -1,23 +1,23 @@
 import { Request, Response } from "express";
 import { ICidade } from "./dto/Cidade";
 import * as yup from 'yup';
+import { validation } from "../../../shared/middlewares";
 
-const bodyValidation: yup.Schema<ICidade> = yup.object().shape({
-  nome: yup.string().required().min(3),
-});
+
 export const create = async (req: Request<{}, {}, ICidade>, res: Response) => {
-  let validatedData: ICidade | undefined = undefined;
-  try {
-    validatedData = await bodyValidation.validate(req.body);
-  } catch (error) {
-    const yupError = error as yup.ValidationError;
-
-    return res.json({
-      errors:{
-        default: yupError.message,
-      }
-    });
-  }
-  console.log(validatedData);
-  return res.send(validatedData);
+  res.send('deu certo');
 };
+
+interface IFilter {
+  value?: string
+}
+
+export const createValidation = validation((getSchema) => ({
+  body: getSchema<ICidade>(yup.object().shape({
+    nome: yup.string().required().min(3),
+    estado: yup.string().required().min(2).max(2)
+  })),
+  query: getSchema<IFilter>(yup.object().shape({
+    value: yup.string().required().min(3),
+  }))
+}));
